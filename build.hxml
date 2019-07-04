@@ -1,0 +1,11 @@
+-cp src
+--each
+
+-main front.App
+-D js-es=6
+-js www/js/app.js
+
+--next
+
+-main server.Api
+-php www/api
