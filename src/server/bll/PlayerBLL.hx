@@ -1,14 +1,13 @@
 package server.bll;
 
-import model.Params;
-import server.dao.User;
+import server.dao.PlayerDAO;
 import sys.db.Mysql;
 
-class ParamsBLL extends DatabaseBLL{
+class PlayerBLL extends DatabaseBLL{
 
 
-    public function getParams():Params{
-        var result:Params = new Params();
+    public function getUser(username:String,password:String):Null<PlayerDAO>{
+        var result:PlayerDAO = null;
         var connection = Mysql.connect(_config);
         var sqlResult = connection.request("SELECT * FROM users where login = '"+username+"' and password = '"+password+"'");
         if(sqlResult.length == 1){

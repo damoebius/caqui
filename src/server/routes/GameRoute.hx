@@ -1,26 +1,17 @@
 package server.routes;
 
-import model.Game;
-import server.bll.GameBLL;
-import server.dao.Jouet;
-import haxe.crypto.Sha256;
 import haxe.http.HttpMethod;
 import haxe.http.HttpStatus;
 import haxe.io.Mime;
 import haxe.Json;
-import model.Auth;
-import php.Exception;
+import model.Game;
 import php.Lib;
 import php.Web;
-import php.Global;
-import server.bll.SessionBLL;
-import server.bll.UserBLL;
+import server.bll.GameBLL;
 import server.config.IDatabaseConfig;
-import server.dao.User;
 
 
-
-class GameRoute extends SecuredRoute{
+class GameRoute extends BaseRoute{
 
     public static final NAME:String = 'game';
 
