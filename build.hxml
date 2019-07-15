@@ -2,6 +2,7 @@
 --each
 
 -main front.App
+-lib taminahx:git:https://github.com/damoebius/taminahx.git
 -D js-es=6
 -js www/js/app.js
 

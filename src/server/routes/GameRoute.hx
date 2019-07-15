@@ -1,5 +1,6 @@
 package server.routes;
 
+import model.Mock;
 import haxe.http.HttpMethod;
 import haxe.http.HttpStatus;
 import haxe.io.Mime;
@@ -13,8 +14,6 @@ import server.config.IDatabaseConfig;
 
 class GameRoute extends BaseRoute{
 
-    public static final NAME:String = 'game';
-
     private var _gameBLL:GameBLL;
 
     public function new(config:IDatabaseConfig) {
@@ -23,7 +22,6 @@ class GameRoute extends BaseRoute{
     }
 
     override public function process():Void {
-        super.process();
         try {
             if (Web.getMethod() == HttpMethod.Get) {
                 var gameId:Int = Std.parseInt(getId());
@@ -37,7 +35,10 @@ class GameRoute extends BaseRoute{
                         Web.setReturnCode(HttpStatus.Unauthorized);
                     }
                 } else {
-                    Web.setReturnCode(HttpStatus.BadRequest);
+                    Web.setReturnCode(HttpStatus.OK);
+                    Web.setHeader('Content-type',Mime.ApplicationJson);
+                    Lib.print(Json.stringify(Mock.getGames()));
+                    // Web.setReturnCode(HttpStatus.BadRequest);
                 }
             } else if (Web.getMethod() != HttpMethod.Options) {
                 Web.setReturnCode(HttpStatus.BadRequest);

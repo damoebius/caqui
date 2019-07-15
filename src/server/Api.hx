@@ -1,5 +1,6 @@
 package server;
 
+import model.RoutesDefinitions;
 import server.routes.GameRoute;
 import server.config.ServerConfigFactory;
 import server.routes.BaseRoute;
@@ -32,7 +33,7 @@ class Api {
         var config = ServerConfigFactory.getDatabaseConfig();
 
         _routes = new StringMap();
-        _routes.set(GameRoute.NAME,new GameRoute(config));
+        _routes.set(RoutesDefinitions.GAME,new GameRoute(config));
     }
 
 
