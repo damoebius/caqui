@@ -1,12 +1,10 @@
 
 <div class="tile">
-    <h3 class="tile-title" data-id="_gameTitle">...</h3>
-    <h4>Joueurs :</h4>
-    <label class="checkbox" for="checkbox1">
-        <input type="checkbox" value="" id="checkbox1" data-toggle="checkbox" class="custom-checkbox"><span class="icons"><span class="icon-unchecked"></span><span class="icon-checked"></span></span>
-        Unchecked
-    </label>
+    <a data-id="_gameTitle" href="#fakelink" class="btn btn-block btn-lg btn-info">...</a>
+    <h4 data-id="_currentPlayerTitle">Joueurs :</h4>
+    <div data-id="_playersContainer"></div>
     <input type="file"
            name="file"
-           accept="image/png, image/jpeg" class="form-control">
+           accept="*.sav" class="form-control" data-id="_fileInput">
+    <button class="btn btn-primary btn-large btn-block" disabled onclick="this.host.upload()" data-id="_uploadButton">Upload</button>
 </div>

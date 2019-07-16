@@ -7,7 +7,7 @@ class ServerConfigFactory {
 
     public static function getDatabaseConfig():IDatabaseConfig {
         var result:IDatabaseConfig = new LocalDatabaseConfig();
-        var serverConfigPath = Global.getenv('DOCUMENT_ROOT') + '/../ServerDatabaseConfig.php';
+        var serverConfigPath = Global.getenv('DOCUMENT_ROOT') + '/../CAQUI_ServerDatabaseConfig.php';
         if (FileSystem.exists(serverConfigPath)) {
             Global.require_once(serverConfigPath);
             result = new ServerDatabaseConfig();

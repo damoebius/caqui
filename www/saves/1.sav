@@ -1,0 +1,53 @@
+SXENWEB
+R6sWq3QY9rRuZfnE
+
+PXENBDD
+hmYfbGnE7R25WsKF
+
+RXENBDD
+2kcCrgRwR9fTj32u
+
+
+
+
+
+
+
+<VirtualHost *:80>
+    ServerAdmin webmaster@example.com
+    ServerName recette.xenassur-partenaire.fr
+    DocumentRoot /home/SXENWEB/recette.xenassur-partenaire.fr/public_html/
+    ErrorLog /home/SXENWEB/recette.xenassur-partenaire.fr/logs/error.log
+    CustomLog /home/SXENWEB/recette.xenassur-partenaire.fr/logs/access.log combined
+</VirtualHost>
+
+<VirtualHost www.xenassur-partenaire.fr:80>
+    ServerAdmin webmaster@example.com
+    ServerName www.xenassur-partenaire.fr
+    DocumentRoot /home/SXENWEB/www.xenassur-partenaire.fr/public_html/
+    ErrorLog /home/SXENWEB/www.xenassur-partenaire.fr/logs/error.log
+    CustomLog /home/SXENWEB/www.xenassur-partenaire.fr/logs/access.log combined
+</VirtualHost>
+
+
+
+
+<VirtualHost *:80>
+    ServerAdmin webmaster@example.com
+    ServerName recette.xenassur-partenaire.fr
+    DocumentRoot /home/SXENWEB/recette.xenassur-partenaire.fr/public_html/
+
+<Directory "/home/SXENWEB/recette.xenassur-partenaire.fr/public_html">
+   Order allow,deny
+   Allow from all
+    Options Indexes FollowSymLinks
+    Require all granted
+</Directory>
+
+</VirtualHost>
+
+
+certbot --apache -d recette.xenassur-partenaire.fr
+
+Warning in ./libraries/session.inc.php
+ session_start(): failed: Permission denied (13)
