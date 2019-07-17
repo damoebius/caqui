@@ -4,13 +4,11 @@ class Turn {
     public var gameId:Int;
     public var playerId:Int;
     public var date:Date;
-    public var file:String;
 
-    public function new(gameId:Int, playerId:Int, date:Date, file:String) {
+    public function new(gameId:Int, playerId:Int, date:Date) {
         this.gameId = gameId;
         this.playerId = playerId;
         this.date = date;
-        this.file = file;
     }
 
 

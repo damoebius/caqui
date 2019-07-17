@@ -21,7 +21,8 @@ class Api {
         registerRoutes();
         var routeRequest:String = StringUtils.SlashTrim(Web.getParams().get('request'));
         var routeList = routeRequest.split('/');
-        var route = _routes.get(routeList.shift());
+        var routeName = routeList.shift().split("?")[0];
+        var route = _routes.get(routeName);
         if(route != null){
             route.process();
         } else {

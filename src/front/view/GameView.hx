@@ -11,7 +11,6 @@ import org.tamina.html.component.HTMLComponent;
 class GameView extends HTMLComponent{
 
     private var _game:Game;
-    private var _reader:FileReader;
 
     @skinpart("") private var _gameTitle:LinkElement;
     @skinpart("") private var _playersContainer:Element;
@@ -23,33 +22,20 @@ class GameView extends HTMLComponent{
         super();
         this.className="col-md-4";
         _game = game;
-        _reader = new FileReader();
-        _reader.addEventListener('loadend', fileLoadHandler);
-
     }
 
     private function upload():Void{
         trace("upload");
         var file:File = _fileInput.files.item(0);
-        _reader.readAsDataURL(file);
+        var request = new PostTurnRequest(_game.id,_game.currentPlayer.id,file);
+        request.run().then(response -> Browser.window.location.reload());
     }
-
-    private function fileLoadHandler(evt:ProgressEvent):Void {
-        var turn = new Turn(_game.id,_game.currentPlayer.id,Date.now(),_reader.result);
-        var request = new PostTurnRequest();
-        request.run(turn).then(response -> Browser.window.location.reload());
-    }
-
 
     private function fileChangeHandler(evt:Event):Void {
-
         var files:FileList = _fileInput.files;
         if (files.length != 0) {
             _uploadButton.removeAttribute("disabled");
         }
-
-
-
     }
 
 

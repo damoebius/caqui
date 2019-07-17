@@ -2,8 +2,6 @@ package server.routes;
 
 import haxe.http.HttpMethod;
 import haxe.http.HttpStatus;
-import haxe.Json;
-import model.Turn;
 import php.Lib;
 import php.Web;
 import server.bll.TurnBLL;
@@ -20,10 +18,13 @@ class TurnRoute extends BaseRoute{
     }
 
     override public function process():Void {
+        trace("aaaaa");
         try {
             if (Web.getMethod() == HttpMethod.Post) {
-                var turn:Turn = Json.parse(Web.getPostData());
-                _turnBLL.addTurn(turn);
+                var params = Web.getParams();
+                var file:String = cast php.Global.file_get_contents('php://input');
+                trace("sdsss");
+                _turnBLL.addTurn(Std.parseInt(params.get("gameId")),Std.parseInt(params.get("playerId")),file);
 
                 Web.setReturnCode(HttpStatus.OK);
             } else if (Web.getMethod() != HttpMethod.Options) {

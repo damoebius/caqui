@@ -1,5 +1,6 @@
 package front.services;
 
+import js.html.Blob;
 import haxe.http.HttpMethod;
 import haxe.http.HttpStatus;
 import haxe.Json;
@@ -9,26 +10,30 @@ import js.html.XMLHttpRequest;
 import js.lib.Error;
 import js.lib.Promise;
 import model.RoutesDefinitions;
-import model.Turn;
 
 class PostTurnRequest {
     private var _request:XMLHttpRequest;
+    private var _gameId:Int;
+    private var _playerId:Int;
+    private var _file:Blob;
 
-    public function new() {
+    public function new(gameId:Int,playerId,file:Blob) {
+        _gameId = gameId;
+        _playerId = playerId;
+        _file = file;
         _request = new XMLHttpRequest();
-        _request.open(HttpMethod.Post, RoutesDefinitions.ENDPOINT + "/" + RoutesDefinitions.TURN);
+        _request.open(HttpMethod.Post, RoutesDefinitions.ENDPOINT + "/" + RoutesDefinitions.TURN+"?gameId="+_gameId+"&playerId="+_playerId);
     }
 
-    public function run(turn:Turn) {
+    public function run() {
 
         return new Promise(function(resolve, reject) {
             _request.addEventListener(XMLHttpRequestEvent.LOAD, function(result:ProgressEvent):Void {
-                var req:XMLHttpRequest = cast result.target;
 
-                if (req.status == HttpStatus.OK) {
+                if (_request.status == HttpStatus.OK) {
                     resolve(true);
                 } else {
-                    reject(new Error("HTTP Error : Unexpected status code " + req.status ));
+                    reject(new Error("HTTP Error : Unexpected status code " + _request.status ));
                 }
 
             });
@@ -39,7 +44,7 @@ class PostTurnRequest {
                 reject(error);
             });
 
-            _request.send(Json.stringify(turn));
+            _request.send(_file);
         });
     }
 }
