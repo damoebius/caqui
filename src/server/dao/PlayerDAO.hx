@@ -1,5 +1,6 @@
 package server.dao;
 
+import model.Player;
 class PlayerDAO {
 
     public var id:Int;
@@ -12,5 +13,8 @@ class PlayerDAO {
         this.email = email;
     }
 
-
+    public static function toPlayer(source:PlayerDAO):Player{
+        var result = new Player(source.id, haxe.Utf8.encode(source.name), haxe.Utf8.encode(source.email));
+        return result;
+    }
 }

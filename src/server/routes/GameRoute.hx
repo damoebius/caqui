@@ -1,11 +1,10 @@
 package server.routes;
 
-import model.Mock;
+import server.bll.PlayerBLL;
 import haxe.http.HttpMethod;
 import haxe.http.HttpStatus;
 import haxe.io.Mime;
 import haxe.Json;
-import model.Game;
 import php.Lib;
 import php.Web;
 import server.bll.GameBLL;
@@ -24,22 +23,12 @@ class GameRoute extends BaseRoute{
     override public function process():Void {
         try {
             if (Web.getMethod() == HttpMethod.Get) {
-                var gameId:Int = Std.parseInt(getId());
-                if(gameId != null){
-                    var game:Game = _gameBLL.getGame(gameId);
-                    if(game != null){
-                        Web.setReturnCode(HttpStatus.OK);
-                        Web.setHeader('Content-type',Mime.ApplicationJson);
-                        Lib.print(Json.stringify(game));
-                    } else {
-                        Web.setReturnCode(HttpStatus.Unauthorized);
-                    }
-                } else {
-                    Web.setReturnCode(HttpStatus.OK);
-                    Web.setHeader('Content-type',Mime.ApplicationJson);
-                    Lib.print(Json.stringify(Mock.getGames()));
-                    // Web.setReturnCode(HttpStatus.BadRequest);
-                }
+
+                var games = _gameBLL.getGames();
+                Web.setReturnCode(HttpStatus.OK);
+                Web.setHeader('Content-type',Mime.ApplicationJson);
+                Lib.print(Json.stringify(games));
+
             } else if (Web.getMethod() != HttpMethod.Options) {
                 Web.setReturnCode(HttpStatus.BadRequest);
             }

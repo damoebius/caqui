@@ -21,7 +21,7 @@ class GameView extends HTMLComponent{
 
     public function new(game:Game) {
         super();
-        this.className="col-4";
+        this.className="col-md-4";
         _game = game;
         _reader = new FileReader();
         _reader.addEventListener('loadend', fileLoadHandler);

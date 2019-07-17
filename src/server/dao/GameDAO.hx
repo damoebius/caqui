@@ -9,7 +9,7 @@ class GameDAO {
     public var name:String;
 
     public static function toGame(source:GameDAO):Game{
-        var result = new Game(source.id,source.name);
+        var result = new Game(source.id, haxe.Utf8.encode(source.name));
         return result;
     }
 
