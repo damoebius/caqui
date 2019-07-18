@@ -1,16 +1,18 @@
 package front.view;
 
-import js.Browser;
 import front.services.PostTurnRequest;
-import model.Turn;
-import model.Game;
+import js.Browser;
 import js.html.*;
+import model.Game;
 import org.tamina.html.component.HTMLComponent;
 
 @view("", "tx-game")
 class GameView extends HTMLComponent{
 
+    public var game(get,set):Game;
     private var _game:Game;
+
+    private var _views:Array<PlayerItemView>;
 
     @skinpart("") private var _gameTitle:LinkElement;
     @skinpart("") private var _playersContainer:Element;
@@ -22,6 +24,17 @@ class GameView extends HTMLComponent{
         super();
         this.className="col-md-4";
         _game = game;
+        _views = [];
+    }
+
+    private function get_game():Game{
+        return _game;
+    }
+
+    private function set_game(value:Game):Game{
+        _game = value;
+        updateView();
+        return _game;
     }
 
     private function upload():Void{
@@ -38,6 +51,17 @@ class GameView extends HTMLComponent{
         }
     }
 
+    private function updateView():Void{
+        _currentPlayerTitle.innerHTML = "C'est à " + _game.currentPlayer.name + " de jouer !";
+        for(player in _game.players){
+            for(view in _views){
+                if(player.id == view.player.id){
+                    view.update( player.id == _game.currentPlayer.id);
+                }
+            }
+        }
+    }
+
 
     override private function creationCompleteCallback():Void {
         _gameTitle.innerHTML = _game.name;
@@ -46,6 +70,7 @@ class GameView extends HTMLComponent{
         for(player in _game.players){
             var item = new PlayerItemView(player);
             item.selected = player.id == _game.currentPlayer.id;
+            _views.push(item);
             _playersContainer.appendChild(item);
         }
         _fileInput.addEventListener("change",fileChangeHandler);

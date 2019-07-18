@@ -1,14 +1,7 @@
 package server.bll;
 
-import haxe.io.Bytes;
-import model.Player;
 import server.config.IDatabaseConfig;
-import server.dao.TurnDAO;
-import haxe.crypto.Base64;
-import model.Turn;
-import sys.io.File;
 import sys.db.Mysql;
-import php.Lib;
 
 class TurnBLL extends DatabaseBLL{
 
@@ -35,16 +28,13 @@ class TurnBLL extends DatabaseBLL{
         }
         var connection = Mysql.connect(_config);
         //connection.request("INSERT INTO turn () VALUES ()");
-        connection.request("UPDATE game SET current_id_player =  " + nextPlayer.id);
+        connection.request("UPDATE game SET current_id_player =  " + nextPlayer.id + " WHERE id = " + game.id);
         connection.close();
 
         var tos = mails.join(",");
         var subject = "["+game.name+"] C'est à " + nextPlayer.name + " de jouer";
         var message = "https://caqui.tamina.io";
-        trace(tos);
-        trace(subject);
-        trace(message);
-        Lib.mail(tos,subject,message);
+        //Lib.mail(tos,subject,message);
 
     }
 }

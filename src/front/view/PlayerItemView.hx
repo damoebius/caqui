@@ -6,6 +6,8 @@ import org.tamina.html.component.HTMLComponent;
 @view("", "tx-playeritem")
 class PlayerItemView extends HTMLComponent {
 
+    public var player(get,null):Player;
+
     private var _player:Player;
     public var selected:Bool;
 
@@ -15,6 +17,17 @@ class PlayerItemView extends HTMLComponent {
     public function new(player:Player) {
         super();
         _player = player;
+    }
+
+    public function update(selected:Bool):Void{
+        _playerInput.removeAttribute("checked");
+        if(selected){
+            _playerInput.setAttribute("checked","checked");
+        }
+    }
+
+    private function get_player():Player{
+        return _player;
     }
 
     override private function creationCompleteCallback():Void {

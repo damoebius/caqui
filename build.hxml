@@ -10,3 +10,4 @@
 
 -main server.Api
 -php www/api
+-D real_position
