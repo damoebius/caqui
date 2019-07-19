@@ -8,6 +8,11 @@
 
 --next
 
+-main front.SW
+-js www/js/sw.js
+
+--next
+
 -main server.Api
 -php www/api
 -D real_position

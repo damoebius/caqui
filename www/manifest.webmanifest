@@ -1,0 +1,36 @@
+{"dir" : "ltr",
+  "lang" : "fr",
+  "name" : "C'est à qui ?",
+  "scope" : "/",
+  "display" : "fullscreen",
+  "start_url" : "https://caqui.tamina.io/",
+  "short_name" : "CAQUI",
+  "theme_color" : "transparent",
+  "description" : "application pour savoir à qui c'est le tour de jouer",
+  "orientation" : "any",
+  "background_color" : "transparent",
+  "related_applications" : "",
+  "prefer_related_applications" : "false",
+  "icons": [
+    {
+      "src": "images/pwa-48x48.png",
+      "type": "image/png",
+      "sizes": "48x48"
+    },
+    {
+      "src": "images/pwa-96x96.png",
+      "type": "image/png",
+      "sizes": "96x96"
+    },
+    {
+      "src": "images/pwa-192x192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "images/pwa-192x192.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ]
+}
