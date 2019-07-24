@@ -1,6 +1,6 @@
 package server.bll;
 
-import server.config.IDatabaseConfig;
+import server.config.IServerConfig;
 import server.dao.GameDAO;
 import sys.db.Mysql;
 import model.Game;
@@ -9,14 +9,14 @@ class GameBLL extends DatabaseBLL{
 
     private var _playerBLL:PlayerBLL;
 
-    public function new(config:IDatabaseConfig) {
+    public function new(config:IServerConfig) {
         super(config);
         _playerBLL = new PlayerBLL(config);
     }
 
     public function getGame(gameId:Int):Null<Game>{
         var result:Game = null;
-        var connection = Mysql.connect(_config);
+        var connection = Mysql.connect(_config.db);
         var sqlResult = connection.request("select * from game where id = "+gameId);
         if(sqlResult.length == 1){
             var game:GameDAO = sqlResult.results().first();
@@ -30,7 +30,7 @@ class GameBLL extends DatabaseBLL{
 
     public function getGames():Array<Game>{
         var result:Array<Game> = [];
-        var connection = Mysql.connect(_config);
+        var connection = Mysql.connect(_config.db);
         var sqlResult = connection.request("select * from game");
         if(sqlResult.length > 0){
             for(res in sqlResult.results() ){

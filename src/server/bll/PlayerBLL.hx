@@ -9,12 +9,13 @@ class PlayerBLL extends DatabaseBLL{
 
     public function getGameMembers(gameId:Int):Array<Player>{
         var result:Array<Player> = [];
-        var connection = Mysql.connect(_config);
+        var connection = Mysql.connect(_config.db);
         var sqlResult = connection.request(
             "SELECT * FROM player AS p
             INNER JOIN game_member as gm
             ON p.id = gm.id_player
-            WHERE gm.id_game = " + gameId);
+            WHERE gm.id_game = " + gameId
+            + " ORDER BY gm.index_player ASC");
         if(sqlResult.length > 0){
             for(player in sqlResult.results() ){
                 result.push(PlayerDAO.toPlayer(player));
@@ -27,7 +28,7 @@ class PlayerBLL extends DatabaseBLL{
 
     public function getPlayer(playerId:Int):Null<Player>{
         var result:Null<Player> = null;
-        var connection = Mysql.connect(_config);
+        var connection = Mysql.connect(_config.db);
         var sqlResult = connection.request("select * from player where id = "+playerId);
         if(sqlResult.length == 1){
             var player:PlayerDAO = sqlResult.results().first();

@@ -5,14 +5,14 @@ import haxe.http.HttpStatus;
 import php.Lib;
 import php.Web;
 import server.bll.TurnBLL;
-import server.config.IDatabaseConfig;
+import server.config.IServerConfig;
 
 
 class TurnRoute extends BaseRoute{
 
     private var _turnBLL:TurnBLL;
 
-    public function new(config:IDatabaseConfig) {
+    public function new(config:IServerConfig) {
         super(config);
         _turnBLL = new TurnBLL(config);
     }

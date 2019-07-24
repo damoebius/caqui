@@ -1,13 +1,14 @@
 package server.bll;
 
-import server.config.IDatabaseConfig;
+import server.config.IServerConfig;
+import server.utils.PHPMailer;
 import sys.db.Mysql;
 
 class TurnBLL extends DatabaseBLL {
 
     private var _gameBLL:GameBLL;
 
-    public function new(config:IDatabaseConfig) {
+    public function new(config:IServerConfig) {
         super(config);
         _gameBLL = new GameBLL(config);
     }
@@ -26,22 +27,26 @@ class TurnBLL extends DatabaseBLL {
             }
             mails.push(player.email);
         }
-        var connection = Mysql.connect(_config);
-        //connection.request("INSERT INTO turn () VALUES ()");
+        var connection = Mysql.connect(_config.db);
         connection.request("UPDATE game SET current_id_player =  " + nextPlayer.id + " WHERE id = " + game.id);
         connection.close();
-
-        var tos = mails.join(",");
-        var subject = "[" + game.name + "] C'est à " + nextPlayer.name + " de jouer";
-        var message = "https://caqui.tamina.io";
-        var headers = 'From: nospam@tamina.io' + "\r\n" +
-        'Reply-To: nospam@tamina.io' + "\r\n" +
-        'X-Mailer: PHP/7.3';
-
-        try {
-            php.Lib.mail(tos, subject, message,headers,"");
-        } catch (error:Dynamic) {
-            trace(error);
+        if (_config.mail != null) {
+            var mail = new PHPMailer(true);
+            mail.SMTPDebug = 2;
+            mail.isSMTP();
+            mail.Host = _config.mail.host;
+            mail.Port = _config.mail.port;
+            mail.SMTPAuth = true;
+            mail.Username = _config.mail.user;
+            mail.Password = _config.mail.pass;
+            mail.SMTPSecure = _config.mail.security;
+            mail.setFrom('nospam@tamina.io');
+            for(adresse in mails){
+                mail.addAddress(adresse);
+            }
+            mail.Subject = "[" + game.name + "] C'est à " + nextPlayer.name + " de jouer";
+            mail.Body = "https://caqui.tamina.io";
+            mail.send();
         }
 
     }

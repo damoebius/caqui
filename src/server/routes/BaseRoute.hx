@@ -1,13 +1,13 @@
 package server.routes;
 import php.Web;
 import php.ErrorException;
-import server.config.IDatabaseConfig;
+import server.config.IServerConfig;
 
 class BaseRoute {
 
-    private var _config:IDatabaseConfig;
+    private var _config:IServerConfig;
 
-    public function new(config:IDatabaseConfig) {
+    public function new(config:IServerConfig) {
         _config = config;
     }
 

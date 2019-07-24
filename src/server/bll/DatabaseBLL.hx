@@ -1,12 +1,12 @@
 package server.bll;
 
-import server.config.IDatabaseConfig;
+import server.config.IServerConfig;
 
 class DatabaseBLL {
 
-    private var _config:IDatabaseConfig;
+    private var _config:IServerConfig;
 
-    public function new(config:IDatabaseConfig) {
+    public function new(config:IServerConfig) {
         _config = config;
     }
 }

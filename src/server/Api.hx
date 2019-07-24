@@ -1,5 +1,6 @@
 package server;
 
+
 import server.routes.TurnRoute;
 import model.RoutesDefinitions;
 import server.routes.GameRoute;
@@ -28,7 +29,6 @@ class Api {
         } else {
             Web.setReturnCode(HttpStatus.BadRequest);
         }
-
     }
 
     private function registerRoutes():Void{
@@ -41,6 +41,10 @@ class Api {
 
 
     static public function main() {
+        php.Global.require_once("../PHPMailer/PHPMailer.php");
+        php.Global.require_once("../PHPMailer/SMTP.php");
+        php.Global.require_once("../PHPMailer/Exception.php");
+
         _instance = new Api();
     }
 }

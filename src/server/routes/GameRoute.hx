@@ -8,14 +8,14 @@ import haxe.Json;
 import php.Lib;
 import php.Web;
 import server.bll.GameBLL;
-import server.config.IDatabaseConfig;
+import server.config.IServerConfig;
 
 
 class GameRoute extends BaseRoute{
 
     private var _gameBLL:GameBLL;
 
-    public function new(config:IDatabaseConfig) {
+    public function new(config:IServerConfig) {
         super(config);
         _gameBLL = new GameBLL(config);
     }

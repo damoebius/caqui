@@ -5,12 +5,12 @@ import sys.FileSystem;
 
 class ServerConfigFactory {
 
-    public static function getDatabaseConfig():IDatabaseConfig {
-        var result:IDatabaseConfig = new LocalDatabaseConfig();
-        var serverConfigPath = Global.getenv('DOCUMENT_ROOT') + '/../CAQUI_ServerDatabaseConfig.php';
+    public static function getDatabaseConfig():IServerConfig {
+        var result:IServerConfig = new LocalServerConfig();
+        var serverConfigPath = Global.getenv('DOCUMENT_ROOT') + '/../CAQUI_ServerConfig.php';
         if (FileSystem.exists(serverConfigPath)) {
             Global.require_once(serverConfigPath);
-            result = new ServerDatabaseConfig();
+            result = new RemoteServerConfig();
         }
         return result;
     }
