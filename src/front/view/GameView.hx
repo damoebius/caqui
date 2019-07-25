@@ -53,12 +53,12 @@ class GameView extends HTMLComponent{
 
     private function updateView():Void{
         _currentPlayerTitle.innerHTML = "C'est à " + _game.currentPlayer.name + " de jouer !";
+        _playersContainer.innerHTML = "";
         for(player in _game.players){
-            for(view in _views){
-                if(player.id == view.player.id){
-                    view.update( player.id == _game.currentPlayer.id);
-                }
-            }
+            var item = new PlayerItemView(player);
+            item.selected = player.id == _game.currentPlayer.id;
+            _views.push(item);
+            _playersContainer.appendChild(item);
         }
     }
 

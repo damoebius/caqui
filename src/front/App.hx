@@ -1,5 +1,6 @@
 package front;
 
+import front.SW.ServiceWorkerEventType;
 import haxe.Timer;
 import js.html.NotificationPermission;
 import js.html.Notification;
@@ -36,8 +37,14 @@ class App extends HTMLApplication{
             _views.push(view);
             _mainContainer.appendChild( view );
         }
-        _timer = new Timer(30*1000);
-        _timer.run = this.check;
+        if(Browser.navigator.serviceWorker != null){
+            Browser.navigator.serviceWorker.addEventListener(ServiceWorkerEventType.MESSAGE,message -> this.updateGames(message.data));
+        } else {
+            _timer = new Timer(30*1000);
+            _timer.run = this.check;
+        }
+
+
     }
 
     private function check():Void{
