@@ -1,6 +1,7 @@
 package server;
 
 
+import server.routes.CheckRoute;
 import server.routes.TurnRoute;
 import model.RoutesDefinitions;
 import server.routes.GameRoute;
@@ -37,6 +38,7 @@ class Api {
         _routes = new StringMap();
         _routes.set(RoutesDefinitions.GAME,new GameRoute(config));
         _routes.set(RoutesDefinitions.TURN,new TurnRoute(config));
+        _routes.set(RoutesDefinitions.CHECK,new CheckRoute(config));
     }
 
 

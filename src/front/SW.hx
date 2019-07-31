@@ -65,7 +65,7 @@ class SW {
                 _workerScope.clients.claim()
             ])
         );
-        _timer = new Timer(5*1000);
+        _timer = new Timer(30*1000);
         _timer.run = this.check;
 
 
